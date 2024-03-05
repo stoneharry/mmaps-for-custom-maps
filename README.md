@@ -49,10 +49,21 @@ The tool also has a internal version that it stamps generated mmap data with. Wh
 
 ## Maps Issues
 
+Typically maps data should extract fine. The only thing to be wary of is checking if it does actually detect your custom map, because if it is missed at this stage then all the downstream tools will also not contain it.
+
 ## VMaps Issues
+
+We only typically see issues here if the WMO / M2 cannot be parsed for some reason.
 
 ## MMaps Issues
 
+This is where we frequently see issues. Movement maps can be generated vastly differently depending on the map and tool version. The settings that can be configured can also effect how it is generated
+
+The best way to debug movement map data is with the use of a tool called Recast Debug. However you can also:
+- Use the command `.gps` to check maps, vmaps, and mmaps data exists for your current location.
+- Use `.mmap` commands to debug pathfinding in game.
+
 ### Recast Debug
 
+Recast debug allows us to view and test the pathfinding mesh from outside of WoW.
 
