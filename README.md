@@ -40,7 +40,7 @@ Next run the `mmaps_generator.exe`. This takes the map and vmap data as inputs a
 
 This program has a lot of possible arguments that can be provided: https://github.com/TrinityCore/TrinityCore/tree/3.3.5/src/tools/mmaps_generator/Info
 
-Furthermore, the tool has a lot of hardcoded configurations for Blizzlike maps within the code. You may need to play with the settings for your custom map.
+There are some hardcoded configurations for Blizzlike maps within the code. You may need to play with the settings for your custom map, but this is not recommended unless you know what you are doing. These configurations were only reached after extensive testing.
 - https://github.com/TrinityCore/TrinityCore/blob/3.3.5/src/tools/mmaps_generator/MapBuilder.cpp#L1116
 
 The tool also has a internal version that it stamps generated mmap data with. When you run the tool, if the data already exists with the current version then it will skip that map. This is designed such that you can run the tool each emulator update and it will only generate mmap data that has changed, but also means it is harder to iterate on a custom map being designed. You will need to delete existing mmap data for your custom map if you want to regenerate the pathfinding with map edits.
@@ -57,7 +57,7 @@ We only typically see issues here if the WMO / M2 cannot be parsed for some reas
 
 ## MMaps Issues
 
-This is where we frequently see issues. Movement maps can be generated vastly differently depending on the map and tool version. The settings that can be configured can also effect how it is generated
+This is where we frequently see issues. Movement maps can be generated vastly differently depending on the map and tool version. The settings that can be configured can also effect how it is generated.
 
 The best way to debug movement map data is with the use of a tool called Recast Debug. However you can also:
 - Use the command `.gps` to check maps, vmaps, and mmaps data exists for your current location.
@@ -67,3 +67,36 @@ The best way to debug movement map data is with the use of a tool called Recast 
 
 Recast debug allows us to view and test the pathfinding mesh from outside of WoW.
 
+I have attached a version that has TC support to this repository.
+
+You need to run the mmaps tool with the `--debugOutput true` argument to generate the debug data for Recast Debug.
+
+Inside the Recast Debug `Meshes` folder you need to provide:
+- The `.map` file
+- The `.mmap` file
+- The `.dmesh` file
+- The `.mesh` file
+- The `.mmtile` file
+- The `.pmesh` file
+- The `.mmtile` file
+- The `.obj` file
+
+![MeshesFolderScreenshot](https://i.imgur.com/Iv4NsHa.png)
+
+When opening Recast Debug, on the rop right under `Sample` select `Tile Mesh`. TrinityCore only supports Tile Mesh.
+
+Under `Input Mesh` select the `.obj` for the tile you want to debug.
+
+Ensure `TrinityCore Configs` is selected.
+
+On the left panel, select `Test Navmesh`.
+
+Finally, on the bottom right, select `Load mmtile`.
+
+![LoadedMmtile](https://i.imgur.com/dNbxS5t.png)
+
+Everything within the white box is the tile. As long as your meshes folder contains neighbouring tiles, they will also be displayed outside of the white box for completeness. In the above screenshot we can see the WMO spans multiple tiles (ADTs).
+
+The red area indicates where pathfinding has successfully been loaded. We can right and left click to preview how pathfiding would be calculated between two locations.
+
+![PathfindingPreview](https://i.imgur.com/8g9mMm7.jpeg)
