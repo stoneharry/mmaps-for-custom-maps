@@ -45,6 +45,8 @@ There are some hardcoded configurations for Blizzlike maps within the code. You 
 
 The tool also has a internal version that it stamps generated mmap data with. When you run the tool, if the data already exists with the current version then it will skip that map. This is designed such that you can run the tool each emulator update and it will only generate mmap data that has changed, but also means it is harder to iterate on a custom map being designed. You will need to delete existing mmap data for your custom map if you want to regenerate the pathfinding with map edits.
 
+Also note that the tool has been reported to not support map IDs that are > 999.
+
 ## Debugging issues
 
 ## Maps Issues
