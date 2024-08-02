@@ -91,6 +91,8 @@ Under `Input Mesh` select the `.obj` for the tile you want to debug.
 
 Ensure `TrinityCore Configs` is selected.
 
+You need to reselect the obj in Tile Mesh after enabling TrinityCore configs, otherwise the white hitbox is not 533.33f square as that is calculated only on load (it will use the obj boundaries instead).
+
 On the left panel, select `Test Navmesh`.
 
 Finally, on the bottom right, select `Load mmtile`.
